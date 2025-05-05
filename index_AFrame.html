@@ -4,9 +4,31 @@
   </head>
   <body>
     <a-scene>
-        <a-box position="-1 0.5 -4" rotation="0 45 0" color="#4CC3D9"></a-box>
-        <a-plane position="0 0 -5" rotation="-90 0 0" width="5" height="5" color="#7BC8A4"></a-plane>
-      <a-sky color="#baddff"></a-sky>
+
+      <a-assets>
+        <img id="texturbild" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+      </a-assets>
+
+
+      <a-light type="ambient" color="#ffffff"></a-light>
+      <a-light type="directional" color="#ffffff" intensity="1" position="1 3 2"></a-light>
+
+      <a-box 
+      material="src: #texturbild; shader: flat"
+      width="4" height="4" depth="4"
+      position="-2 1.5 -10">
+    </a-box>
+
+
+
+<a-plane 
+  material="src: #texturbild; shader: flat"
+  width="5" height="5" 
+  position="0 2 -10">
+</a-plane>
+
+
+<a-sky color="#baddff"></a-sky>
     </a-scene>
   </body>
 </html>
