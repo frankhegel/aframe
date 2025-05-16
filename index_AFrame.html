@@ -53,7 +53,14 @@ position="16 -3.8 -25" opacity="1" geometry="height: 12.3; width: 4.7"></a-plane
 material="transparent: true; src: #trump"
 position="-5 -3.2 -28" opacity="1" geometry="height: 13; width: 5.8"></a-plane>
 
-
+<a-entity id="rightHand" laser-controls="hand: right">
+  <a-entity cursor="fuse: false; rayOrigin: entity"
+            raycaster="objects: .klickbox"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: red; shader: flat">
+  </a-entity>
+</a-entity>
 
   <a-box id="zielbox1"
        color="#558836" class="klickbox"
@@ -96,6 +103,11 @@ position="-5 -3.2 -28" opacity="1" geometry="height: 13; width: 5.8"></a-plane>
   </a-box> 
 
 <a-sky color="#ffddff"></a-sky>
+
+<a-entity laser-controls="hand: right" raycaster="objects: .klickbox" line="color: red"></a-entity>
+<a-entity laser-controls="hand: left" raycaster="objects: .klickbox" line="color: red"></a-entity>
+
+
     </a-scene>
   </body>
 </html>
