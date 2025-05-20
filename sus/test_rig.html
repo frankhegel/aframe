@@ -6,9 +6,12 @@
   <body>
     <a-scene>
       
-      <!-- Kamera-Rig mit movement-controls -->
-      <a-entity id="rig" movement-controls="fly: false" position="0 1.6 0">
-        <a-entity camera look-controls wasd-controls></a-entity>
+      <!-- Kamera-Rig, das sich bewegen kann -->
+      <a-entity id="rig" movement-controls position="0 0 0">
+        
+        <!-- Kamera mit Headtracking -->
+        <a-entity id="camera" camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+
       </a-entity>
 
       <!-- Umgebung -->
@@ -19,3 +22,4 @@
     </a-scene>
   </body>
 </html>
+
