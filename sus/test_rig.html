@@ -1,25 +1,52 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
   </head>
   <body>
     <a-scene>
-      
-      <!-- Kamera-Rig, das sich bewegen kann -->
-      <a-entity id="rig" movement-controls position="0 0 0">
-        
-        <!-- Kamera mit Headtracking -->
-        <a-entity id="camera" camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
+      <!-- Kamera-Rig -->
+      <a-entity id="rig" position="0 0 0">
+        <a-entity id="camera" camera look-controls position="0 1.6 0"></a-entity>
       </a-entity>
 
-      <!-- Umgebung -->
       <a-box position="0 0.5 -5" color="red"></a-box>
-      <a-plane rotation="-90 0 0" width="50" height="50" color="#7BC8A4"></a-plane>
-      <a-sky color="#00ECEC"></a-sky>
+      <a-plane rotation="-90 0 0" width="30" height="30" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
 
+      <script>
+        AFRAME.registerComponent('joystick-move', {
+          tick: function () {
+            const rig = this.el;
+            const gamepads = navigator.getGamepads && navigator.getGamepads();
+            if (!gamepads) return;
+
+            // Oft ist der linke Controller Gamepad 0 oder 1 – testen!
+            const gp = gamepads[0] || gamepads[1];
+            if (!gp || !gp.axes || gp.axes.length < 4) return;
+
+            const x = gp.axes[2]; // Links/Rechts
+            const y = gp.axes[3]; // Vorwärts/Rückwärts
+
+            // Richtung berechnen
+            const direction = new THREE.Vector3();
+            rig.object3D.getWorldDirection(direction);
+            direction.y = 0; // Kein Höhenversatz
+
+            // Bewegung berechnen
+            const pos = rig.getAttribute('position');
+            pos.x -= direction.x * y * 0.1; // nach vorne
+            pos.z -= direction.z * y * 0.1;
+
+            pos.x += x * 0.05; // seitlich (strafe)
+            rig.setAttribute('position', pos);
+          }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelector('#rig').setAttribute('joystick-move', '');
+        });
+      </script>
     </a-scene>
   </body>
 </html>
-
