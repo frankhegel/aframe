@@ -1,52 +1,59 @@
 <html>
   <head>
+    <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene>
+    <a-scene vr-mode-ui="enabled: true">
 
-      <!-- Kamera-Rig -->
-      <a-entity id="rig" position="0 0 0">
-        <a-entity id="camera" camera look-controls position="0 1.6 0"></a-entity>
+      <!-- Kamera-Rig mit custom Bewegung -->
+      <a-entity id="rig" position="0 0 0" joystick-move>
+        <a-entity camera look-controls position="0 1.6 0"></a-entity>
       </a-entity>
 
-      <a-box position="0 0.5 -5" color="red"></a-box>
-      <a-plane rotation="-90 0 0" width="30" height="30" color="#7BC8A4"></a-plane>
+      <!-- Testobjekte -->
+      <a-box position="0 0.5 -5" color="red" scale="5 1 1"></a-box>
+      <a-plane rotation="-90 0 0" width="50" height="50" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
 
+      <!-- Bewegung per Joystick -->
       <script>
         AFRAME.registerComponent('joystick-move', {
+          schema: {
+            speed: { type: 'number', default: 0.05 }
+          },
           tick: function () {
             const rig = this.el;
-            const gamepads = navigator.getGamepads && navigator.getGamepads();
-            if (!gamepads) return;
+            const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+            if (!gamepads || gamepads.length === 0) return;
 
-            // Oft ist der linke Controller Gamepad 0 oder 1 – testen!
-            const gp = gamepads[0] || gamepads[1];
-            if (!gp || !gp.axes || gp.axes.length < 4) return;
+            // Suche den Controller mit Achsen
+            const gp = [...gamepads].find(gp => gp && gp.axes && gp.axes.length >= 4);
+            if (!gp) return;
 
-            const x = gp.axes[2]; // Links/Rechts
+            const x = gp.axes[2]; // Seitlich (Strafen)
             const y = gp.axes[3]; // Vorwärts/Rückwärts
 
-            // Richtung berechnen
+            if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) return; // Deadzone
+
+            // Richtung der Kamera
             const direction = new THREE.Vector3();
-            rig.object3D.getWorldDirection(direction);
-            direction.y = 0; // Kein Höhenversatz
+            rig.sceneEl.camera.el.object3D.getWorldDirection(direction);
+            direction.y = 0; // Nur horizontale Bewegung
+            direction.normalize();
 
-            // Bewegung berechnen
+            // Aktuelle Position
             const pos = rig.getAttribute('position');
-            pos.x -= direction.x * y * 0.1; // nach vorne
-            pos.z -= direction.z * y * 0.1;
 
-            pos.x += x * 0.05; // seitlich (strafe)
+            // Bewegung
+            pos.x += direction.x * -y * this.data.speed + x * this.data.speed;
+            pos.z += direction.z * -y * this.data.speed - x * direction.x * 0.2;
+
             rig.setAttribute('position', pos);
           }
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('#rig').setAttribute('joystick-move', '');
-        });
       </script>
+
     </a-scene>
   </body>
 </html>
