@@ -1,30 +1,33 @@
-<!DOCTYPE html>
 
 <html>
-
   <head>
-
-    <meta charset="utf-8">
-
-    <title>Drehender Würfel in A-Frame</title>
-
-    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-
+ 	<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
   </head>
-
   <body>
+  <a-scene cursor="rayOrigin: mouse">
 
-    <a-scene>
-      
-       <a-entity
-        camera
-        look-controls="pointerLockEnabled: true"
-        wasd-controls
-        position="0 0 3">
+      <a-assets>
+        <img id="vorne" src="images/R183_vorne.jpg">
+       </a-assets>
+
+    <a-light type="directional" color="#000055" intensity="0.2" position="-10 15 +2"></a-light>
+
+
+   <a-entity id="rig"
+        movement-controls="speed: 1.25; controls: gamepad, keyboard; fly: false"
+        position="-7 -1 5" rotation="0 0 0">
+
+        <!-- WICHTIG: keine eigenen wasd-controls auf der Kamera -->
+        <a-entity camera position="7 1.6 0" rotation="0 0 0" look-controls="pointerLockEnabled: true">
+        </a-entity>
       </a-entity>
 
-      <a-entity light="type: directional; intensity: 4; castShadow: true" position="-4 1 4"></a-entity>
-      <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+
+
+      
+      <a-entity light="type: directional; intensity: 0.8; castShadow: true" position="-4 1 4"></a-entity>
+      <a-entity light="type: ambient; intensity: 0.51"></a-entity>
       <a-box  color="#22aa88"
               depth="1.5" height="0.2" width="0.6"
               position ="0 0 -1"
@@ -35,7 +38,7 @@
       </a-box>
       <!-- Würfel mit Rotation per Component -->
       <a-box id="cube"
-              color="#ca4035"
+              color="#aa4035"
               depth="1.8" height="0.3" width="1.6"
               rotate-cube
               shadow="cast: true"
