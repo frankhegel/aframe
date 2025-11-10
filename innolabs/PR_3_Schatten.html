@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene renderer="shadowMapEnabled: true">
+      <!-- gerichtetes Licht, das Schatten wirft -->
+      <a-entity 
+        light="type: directional; color: #ffffff; intensity: 3.0; castShadow: true"
+        position="-5 4 3">
+      </a-entity>
+
+      <!-- Box, die Schatten wirft -->
+      <a-box 
+        position="-0.8 0.5 -3.5" 
+        rotation="0 60 0" 
+        color="#ff5555" 
+        shadow="cast: true">
+      </a-box>
+
+      <!-- Plane, die Schatten empfängt -->
+      <a-plane 
+        position="0 0 -4.2" 
+        rotation="-90 0 0" 
+        width="5" 
+        height="4" 
+        color="#aaaaaa" 
+        shadow="receive: true">
+      </a-plane>
+
+      <a-sky color="#cCccdd"></a-sky>
+    </a-scene>
+  </body>
+</html>
+

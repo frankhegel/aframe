@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>Drehender Würfel in A-Frame</title>
+
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <a-scene>
+      
+       <a-entity
+        camera
+        look-controls="pointerLockEnabled: true"
+        wasd-controls
+        position="0 0 3">
+      </a-entity>
+
+      <a-entity light="type: directional; intensity: 4; castShadow: true" position="-4 1 4"></a-entity>
+      <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+      <a-box  color="#22aa88"
+              depth="1.5" height="0.2" width="0.6"
+              position ="0 0 -1"
+              rotation="0 0 0"
+              animation="property: rotation; to: 360 0 360; dur: 40000; loop: true; easing: linear;"
+              shadow="cast: true"
+              shadow="receive: true">
+      </a-box>
+      <!-- Würfel mit Rotation per Component -->
+      <a-box id="cube"
+              color="#ca4035"
+              depth="1.8" height="0.3" width="1.6"
+              rotate-cube
+              shadow="cast: true"
+              shadow="receive: true">
+      </a-box>
+      <a-sky color="#99ccdd"></a-sky>
+    </a-scene>
+
+
+
+    <!-- JavaScript-Komponente zur Rotation -->
+
+    <script>
+      let myGlobalValue = 0;
+      AFRAME.registerComponent('rotate-cube', {
+
+        tick: function (time, timeDelta) {
+          myGlobalValue += 0.045;
+
+          let rotation = this.el.getAttribute('rotation');
+          rotation.y += timeDelta * 0.05; 
+          rotation.x += timeDelta * 0.16; 
+          rotation.z += timeDelta * 0.16; 
+          this.el.setAttribute('rotation', rotation);
+       let position = this.el.getAttribute('position');
+          position.y = Math.sin(myGlobalValue/1.9)*1.2; 
+          position.x =  Math.sin(myGlobalValue)*2.5; 
+          position.z = -2.2 + Math.cos(myGlobalValue)*4.2; 
+          this.el.setAttribute('position', position);
+
+        }
+      });
+    </script>
+  </body>
+</html>

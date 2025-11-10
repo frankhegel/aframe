@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <title>L14 - Loading and displaying 3D models</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    </head>
+    <body>
+        <!-- ******** SOME THINGS HAVE CHANGED WITH v1.4.2 ******** -->
+        <!-- To correct the texture color in 3D models, you want to attach the renderer component
+             to the <a-scene> element and then set the colorManagement property to true (line 13).
+             More details about the Linear and sRGB color space issue here:
+             https://github.com/aframevr/aframe/issues/3509 -->
+        <a-scene renderer="colorManagement: true">
+            <!-- Asset Management System -->
+            <!-- **** IMPORTANT **** Due to the website policies, I cannot distribute the 3D models
+                 that I use in the video. Please download the 3D models yourself, or use your own,
+                 and then move them to the ASSETs folder -->
+            <a-assets>
+                <a-asset-item id="your-3Dmodel-02-o" src="01.obj"></a-asset-item>
+                <a-asset-item id="your-3Dmodel-02-m" src="01.mtl"></a-asset-item>
+            </a-assets>
+            
+            
+            <!-- Camera -->
+            <a-entity position="80 40 -70" rotation="0 120 0">
+                <a-camera></a-camera>
+                </a-entity>
+                        
+            <!-- Your 3D Model 02 -->
+            <a-entity obj-model="obj: #your-3Dmodel-02-o; mtl: #your-3Dmodel-02-m"
+                      position="0 0 0"
+                      rotation="-90 -40 0"
+                      scale="0.5 0.5 0.5">
+           </a-entity>
+            
+        </a-scene>
+    </body>
+</html>

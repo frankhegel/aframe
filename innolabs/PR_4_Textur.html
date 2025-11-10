@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene renderer="shadowMapEnabled: true">
+      <!-- Texturen laden -->
+      <a-assets>
+        <img id="texture1" src="textur/3_Ball.jpg">
+        <img id="texture2" src="textur/2_Rasen.jpg">
+      </a-assets>
+
+      <!-- Box, jetzt mit Textur statt Farbe -->
+      <a-box 
+        position="0.9 0.7 -3.5" 
+        rotation="0 0 0"
+        width="1.3" height="1.3" depth="1.3"
+        material="src: #texture1; repeat: 0.33 0.5;"
+        animation="property: rotation; to: 0 360 0; dur: 15000; loop: true; easing: linear;"
+        >
+        
+      </a-box>
+
+
+      <a-sphere position="-1.5 0.7 -3.8" radius="0.7" color="#eeeeee"
+      rotation="0 360 0" 
+      material="src: #texture1; repeat: 1 0.8;"
+      animation="property: rotation; to: 0 0 0; dur: 3000; loop: true; easing: linear;"
+      ></a-sphere>
+
+      <!-- Plane, die Schatten empfängt -->
+      <a-plane 
+        position="0 0 -4.2" 
+        rotation="-90 20 -10" 
+        width="8" 
+        height="4" 
+        color="#aaaaaa"
+        material="src: #texture2; repeat: 1 1;">
+      </a-plane>
+
+      <a-sky color="#cCccdd"></a-sky>
+    </a-scene>
+  </body>
+</html>
