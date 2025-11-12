@@ -1,0 +1,36 @@
+# 
+# Wavefront material file
+# Created with Kaydara FBX
+# 
+
+newmtl Legofigur_HegelMaterial0
+Ka 0.800000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 20.000000
+Tr 1.000000
+
+newmtl Legofigur_HegelMaterial1
+Ka 0.800000 0.756863 0.000000
+Kd 0.800000 0.756863 0.000000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 20.000000
+Tr 1.000000
+
+newmtl Legofigur_HegelMaterial2
+Ka 0.000000 0.247059 0.749020
+Kd 0.000000 0.247059 0.749020
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 20.000000
+Tr 1.000000
+
+newmtl Legofigur_HegelMaterial3
+Ka 0.349020 0.254902 0.109804
+Kd 0.349020 0.254902 0.109804
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 20.000000
+Tr 1.000000
