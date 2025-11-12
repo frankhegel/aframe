@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D models</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene renderer="shadowMapEnabled: true">
+      <!-- Licht -->
+      <a-entity light="type: directional; color: #aa8888; intensity: 0.8; castShadow: true" position="-3.5 5 1"></a-entity>
+      <a-entity light="type: ambient; intensity: 0.8"></a-entity>
+
+      <!-- Assets -->
+      <a-assets>
+        <a-asset-item id="mdl-obj" src="obj/0_stuhl.obj"></a-asset-item>
+        <a-asset-item id="mdl-mtl" src="obj/0_stuhl.mtl"></a-asset-item>
+        <a-asset-item id="your-3Dmodel-02-o" src="obj/0_Klassenzimmer_leer.obj"></a-asset-item>
+        <a-asset-item id="your-3Dmodel-02-m" src="obj/0_klassenzimmer_leer.mtl"></a-asset-item>
+      </a-assets>
+
+       <a-entity id="rig"
+        movement-controls="speed: 0.2; controls: gamepad, keyboard; fly: false"
+        position="0 4 3" rotation="0 0 0">
+
+        <!-- WICHTIG: keine eigenen wasd-controls auf der Kamera -->
+        <a-entity camera position="0 0 0" rotation="0 0 0" look-controls="pointerLockEnabled: true">
+          <a-cursor></a-cursor>
+        </a-entity>
+      </a-entity>
+
+            <a-entity obj-model="obj: #your-3Dmodel-02-o; mtl: #your-3Dmodel-02-m"
+                      position="0 0 -10"
+                      rotation="-90 0 0"
+                      scale="0.05 0.05 0.05"
+
+            shadow="cast: true"
+            shadow="receive: true">
+           </a-entity>
+
+      <!-- Container für die Reihe -->
+      <a-entity id="row"></a-entity>
+
+      <!-- Boden & Himmel -->
+      <a-plane position="0 0 -5" rotation="-90 0 0" width="13" height="10" color="#666666"
+               shadow="cast: true; receive: true"></a-plane>
+      <a-sky color="#6d8cae"></a-sky>
+    </a-scene>
+
+    <script>
+  let myGlobalValue = 0.1;
+
+  const COUNT = 30;
+  const SPACING = 0.28;
+  const START_X = -((COUNT - 1) * SPACING) / 2;
+  const POS_Y = 0;
+  const POS_Z = -6;
+  const SCALE = "0.05 0.05 0.05";
+  const ROTATION = "-90 0 0";
+
+  // Wir speichern alle Stühle in einem Array
+  const chairs = [];
+
+  document.querySelector("a-scene").addEventListener("loaded", () => {
+    const container = document.getElementById("row");
+
+    for (let i = 0; i < COUNT; i++) {
+      const x = START_X + i * SPACING;
+
+      const ent = document.createElement("a-entity");
+      ent.setAttribute("obj-model", "obj: #mdl-obj; mtl: #mdl-mtl");
+      ent.setAttribute("position", `${x} ${POS_Y} ${POS_Z}`);
+      ent.setAttribute("rotation", ROTATION);
+      ent.setAttribute("scale", SCALE);
+      ent.setAttribute("shadow", "cast: true; receive: true");
+
+      container.appendChild(ent);
+      chairs.push(ent); // speichern für spätere Updates
+    }
+  });
+
+  // Alle 15 ms: myGlobalValue erhöhen und Stühle hochbewegen
+  setInterval(() => {
+    myGlobalValue += 0.006;
+
+    chairs.forEach((chair, i) => {
+      // Y-Position mit globalem Wert + kleinem Versatz
+      const newY = 5+Math.sin(myGlobalValue + i*1.5) * 0.95;
+      chair.setAttribute("position", `${START_X + i * SPACING} ${newY} ${Math.sin(i+myGlobalValue)*9-9}`);
+      chair.setAttribute("rotation", `${i*100+myGlobalValue*160} ${i*11+myGlobalValue*230} ${i*20+myGlobalValue*400}`);
+    });
+  }, 15);
+</script>
+
+  </body>
+</html>
