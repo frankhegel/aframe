@@ -6,7 +6,7 @@
   <title>InnolabsBS - Frank Hegel: A-Frame</title>
   <style>
     :root { 
-      --gap: 24px;
+      --gap: 40px;
       --cols: 3;
     }
 
@@ -19,7 +19,7 @@
       display: grid;
       place-items: center;
       padding: 40px;
-      background-color: rgb(96, 96, 96);
+      background-color: rgb(91, 91, 91);
     }
 
     a {
@@ -32,7 +32,7 @@ a:hover {
 }
 
     .gallery-wrap {
-      width: clamp(260px, 90vw, 900px);
+      width: clamp(250px, 90vw, 900px);
       display: flex;
       flex-direction: column;
       gap: var(--gap);
@@ -66,31 +66,31 @@ a:hover {
     }
 
     figure img {
-      width: 85%;
+      width: 80%;
       object-fit: contain;
-      border: 1px solid #000000;
+      border: 1px solid #222222;
       display: block;
-      transition: 0.15s ease;
+      transition: 0.20s ease;
     }
 
     figure img:hover {
-      transform: scale(1.10);
+      transform: scale(1.13);
     }
 
     figcaption {
-      margin-top: 6px;
+      margin-top: 9px;
       font-size: 14px;
     }
 
     .footer {
-      text-align: left; /* Jetzt exakt rechtsbündig innerhalb derselben Containerbreite */
+      text-align: left; 
       font-size: 14px;
       margin-top: 8px;
     }
 
     @media (max-width: 640px) {
       :root { --cols: 2; }
-      figure img { width: 90%; }
+      figure img { width: 85%; }
     }
 
     @media (max-width: 420px) {
