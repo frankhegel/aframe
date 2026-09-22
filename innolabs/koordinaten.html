@@ -83,12 +83,24 @@
          angezogenem Headset – anvisieren mit dem Controller-Strahl,
          Trigger drücken.
          Steht fest an einer Stelle im Raum (nicht am Blickfeld
-         befestigt) – Position unten bei PANEL_POS/PANEL_ROT leicht
-         anpassbar. Steuert wie das div-Panel nur die erste (rote)
-         Fläche. Alle Flächen liegen lokal in der eigenen x/y-Ebene
-         der Gruppe, "side: double" macht sie von beiden Seiten
-         lesbar/klickbar, unabhängig von der genauen Ausrichtung. -->
-    <a-entity id="vr-panel" position="-7 3 -6" rotation="0 -45 0">
+         befestigt), parallel zur roten X-Achse im Minusbereich und
+         wirkt so, als stünde es direkt auf der Achse:
+         "rotation: 0 0 0" lässt die lokale x-Achse der Gruppe (dort,
+         wo die Knöpfe nebeneinander aufgereiht sind) mit der
+         Welt-x-Achse zusammenfallen. Der Hintergrund-plane ist
+         2.8 hoch und lokal bei y=0.3 zentriert, seine Unterkante
+         liegt also bei y=-1.1 relativ zur Gruppe – "position: -3.67 1.1 0"
+         setzt die Gruppe genau so hoch, dass diese Unterkante auf
+         y=0 (Achsenhöhe) landet, "z: 0" rückt sie direkt auf die
+         Achslinie statt seitlich daneben, und "x: -3.67" hält gut
+         3,7 Einheiten Abstand zur grünen Y-Achse (die bei x=0 liegt).
+         Bei Bedarf
+         hier einfach anpassen.
+         Steuert wie das div-Panel nur die erste (rote) Fläche. Alle
+         Flächen liegen lokal in der eigenen x/y-Ebene der Gruppe,
+         "side: double" macht sie von beiden Seiten lesbar/klickbar,
+         unabhängig von der genauen Ausrichtung. -->
+    <a-entity id="vr-panel" position="-3.67 1.1 0" rotation="0 0 0">
       <a-plane width="3.6" height="2.8" position="0 0.3 0"
                color="#1c2743" opacity="0.9" material="side: double"></a-plane>
 
