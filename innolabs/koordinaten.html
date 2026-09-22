@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Koordinatensystem</title>
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+</head>
+<body style="margin:0;">
+  <a-scene background="color: #333333">
+
+    <!-- Kamera: schräg von außen auf den Ursprung gerichtet, damit
+         alle drei Achsen sichtbar sind. Mit WASD kann man sich
+         bewegen. (Hinweis: "look-controls" absichtlich weggelassen –
+         die Komponente überschreibt jede feste "rotation" beim
+         Start mit ihrer eigenen, internen Blickrichtung. Wer freies
+         Umschauen per Maus möchte, kann look-controls ergänzen,
+         muss die Blickrichtung dann aber per JavaScript setzen.) -->
+    <a-entity camera wasd-controls position="3 6 12" rotation="-10 -10 0"></a-entity>
+
+    <!-- Licht -->
+    <a-light type="ambient" color="#aaa"></a-light>
+    <a-light type="directional" color="#ddd" position="15 10 10"></a-light>
+
+    <!-- Achsen: X = rot, Y = grün, Z = blau -->
+    <a-entity line="start: -11 0 0; end: 11 0 0; color: red"></a-entity>
+    <a-entity line="start: 0 -11 0; end: 0 11 0; color: limegreen"></a-entity>
+    <a-entity line="start: 0 0 -11; end: 0 0 11; color: dodgerblue"></a-entity>
+
+
+
+     <a-entity id="flaeche" position="5 3 5" rotation="0 0 0">
+      <a-triangle vertex-a="-3 -3 0" vertex-b="3 -3 0" vertex-c="3 3 0"
+                  color="#ff2222" material="side: double; opacity: 0.45; transparent: true"></a-triangle>
+      <a-triangle vertex-a="-3 -3 0" vertex-b="3 3 0" vertex-c="-3 3 0"
+                  color="#ff2222" material="side: double; opacity: 0.45; transparent: true"></a-triangle>
+    </a-entity>
+
+
+ <a-entity id="flaeche" position="5 1 8" rotation="30 30 0">
+      <a-triangle vertex-a="-3 -3 -3" vertex-b="3 -3 -3" vertex-c="3 3 -3"
+                  color="#6666ff" material="side: double; opacity: 0.65; transparent: true"></a-triangle>
+      <a-triangle vertex-a="-3 -3 -3" vertex-b="3 3 -3" vertex-c="-3 3 -3"
+                  color="#6666ff" material="side: double; opacity: 0.65; transparent: true"></a-triangle>
+    </a-entity>
+
+
+            <!-- Ursprung -->
+    <a-sphere position="0 0 0" radius="0.1" color="white"></a-sphere>
+    <a-text value="0" position="-0.4 -0.4 0" color="white" width="6" align="center"></a-text>
+
+    <!-- Punkte 0 bis 10 auf der X-Achse (rot) -->
+    <a-sphere position="1 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="2 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="3 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="4 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="5 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="6 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="7 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="8 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="9 0 0" radius="0.08" color="red"></a-sphere>
+    <a-sphere position="10 0 0" radius="0.08" color="red"></a-sphere>
+
+    <a-text value="1" position="1 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="2" position="2 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="3" position="3 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="4" position="4 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="5" position="5 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="6" position="6 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="7" position="7 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="8" position="8 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="9" position="9 -0.4 0" color="red" width="6" align="center"></a-text>
+    <a-text value="10" position="10 -0.4 0" color="red" width="6" align="center"></a-text>
+
+    <!-- Punkte 0 bis 10 auf der Y-Achse (grün) -->
+    <a-sphere position="0 1 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 2 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 3 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 4 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 5 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 6 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 7 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 8 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 9 0" radius="0.08" color="limegreen"></a-sphere>
+    <a-sphere position="0 10 0" radius="0.08" color="limegreen"></a-sphere>
+
+    <a-text value="1" position="-0.4 1 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="2" position="-0.4 2 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="3" position="-0.4 3 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="4" position="-0.4 4 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="5" position="-0.4 5 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="6" position="-0.4 6 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="7" position="-0.4 7 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="8" position="-0.4 8 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="9" position="-0.4 9 0" color="limegreen" width="6" align="center"></a-text>
+    <a-text value="10" position="-0.4 10 0" color="limegreen" width="6" align="center"></a-text>
+
+    <!-- Punkte 0 bis 10 auf der Z-Achse (blau) -->
+    <a-sphere position="0 0 1" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 2" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 3" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 4" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 5" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 6" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 7" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 8" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 9" radius="0.08" color="dodgerblue"></a-sphere>
+    <a-sphere position="0 0 10" radius="0.08" color="dodgerblue"></a-sphere>
+
+    <a-text value="1" position="0 -0.4 1" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="2" position="0 -0.4 2" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="3" position="0 -0.4 3" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="4" position="0 -0.4 4" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="5" position="0 -0.4 5" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="6" position="0 -0.4 6" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="7" position="0 -0.4 7" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="8" position="0 -0.4 8" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="9" position="0 -0.4 9" color="dodgerblue" width="6" align="center"></a-text>
+    <a-text value="10" position="0 -0.4 10" color="dodgerblue" width="6" align="center"></a-text>
+
+  </a-scene>
+
+
+  <div style="position:fixed; top:10px; left:10px; background:#676767; color:#fff;
+              padding:20px 20px; border-radius:8px; font-family:sans-serif; font-size:14px;
+              line-height:1.7; box-shadow:0 4px 12px rgba(0,0,0,0.5);">
+    <div><strong>Fläche verschieben</strong></div>
+    <div>
+      x <button onclick="nudgePos('x',-0.5)">−</button> <button onclick="nudgePos('x',0.5)">+</button>
+      &nbsp;y <button onclick="nudgePos('y',-0.5)">−</button> <button onclick="nudgePos('y',0.5)">+</button>
+      &nbsp;z <button onclick="nudgePos('z',-0.5)">−</button> <button onclick="nudgePos('z',0.5)">+</button>
+    </div>
+    <div style="margin-top:12px;"><strong>Fläche drehen</strong></div>
+    <div>
+      x <button onclick="nudgeRot('x',-15)">↺</button> <button onclick="nudgeRot('x',15)">↻</button>
+      &nbsp;y <button onclick="nudgeRot('y',-15)">↺</button> <button onclick="nudgeRot('y',15)">↻</button>
+      &nbsp;z <button onclick="nudgeRot('z',-15)">↺</button> <button onclick="nudgeRot('z',15)">↻</button>
+    </div>
+    <div id="status" style="margin-top:8px; font-family:monospace; font-size:12px; opacity:.85;"></div>
+    <button onclick="resetFlaeche()" style="margin-top:8px;">zurücksetzen</button>
+  </div>
+
+  <script>
+    // Startwerte merken, damit "zurücksetzen" dahin zurückkann.
+    var START_POS = { x: 5, y: 3, z: 5 };
+    var START_ROT = { x: 0, y: 0, z: 0 };
+
+    function nudgePos(achse, delta) {
+      var el = document.getElementById('flaeche');
+      var pos = el.getAttribute('position');
+      pos[achse] += delta;
+      el.setAttribute('position', pos);
+      updateStatus();
+    }
+
+    function nudgeRot(achse, delta) {
+      var el = document.getElementById('flaeche');
+      var rot = el.getAttribute('rotation');
+      rot[achse] += delta;
+      el.setAttribute('rotation', rot);
+      updateStatus();
+    }
+
+    function resetFlaeche() {
+      var el = document.getElementById('flaeche');
+      el.setAttribute('position', START_POS);
+      el.setAttribute('rotation', START_ROT);
+      updateStatus();
+    }
+
+    function updateStatus() {
+      var el = document.getElementById('flaeche');
+      var p = el.getAttribute('position');
+      var r = el.getAttribute('rotation');
+      document.getElementById('status').textContent =
+        'Position (' + p.x.toFixed(1) + ', ' + p.y.toFixed(1) + ', ' + p.z.toFixed(1) + ')' +
+        '  ·  Drehung (' + Math.round(r.x) + '°, ' + Math.round(r.y) + '°, ' + Math.round(r.z) + '°)';
+    }
+
+    // Beim Laden ist die Komponente "position/rotation" des Entities
+    // noch nicht fertig initialisiert – sonst würde die Anzeige kurz
+    // "0.0, 0.0, 0.0" zeigen, obwohl die Fläche schon richtig steht.
+    // Deshalb erst nach dem "loaded"-Event des Entities lesen.
+    document.getElementById('flaeche').addEventListener('loaded', updateStatus);
+  </script>
+</body>
+</html>
