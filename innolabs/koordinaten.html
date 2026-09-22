@@ -4,18 +4,41 @@
   <meta charset="utf-8">
   <title>Koordinatensystem</title>
   <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  <!-- "movement-controls" gehört NICHT zum A-Frame-Kern – es ist Teil
+       der offiziellen, weit verbreiteten Zusatzbibliothek
+       "aframe-extras". Ein zweiter <script>-Tag reicht, kein
+       npm/Build nötig. Sie bringt Bewegung per Tastatur UND per
+       echtem Gamepad/VR-Controller (z. B. Meta Quest) in einer
+       Komponente mit. -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.7.0/dist/aframe-extras.controls.min.js"></script>
 </head>
 <body style="margin:0;">
   <a-scene background="color: #333333">
 
     <!-- Kamera: schräg von außen auf den Ursprung gerichtet, damit
-         alle drei Achsen sichtbar sind. Mit WASD kann man sich
-         bewegen. (Hinweis: "look-controls" absichtlich weggelassen –
-         die Komponente überschreibt jede feste "rotation" beim
-         Start mit ihrer eigenen, internen Blickrichtung. Wer freies
-         Umschauen per Maus möchte, kann look-controls ergänzen,
-         muss die Blickrichtung dann aber per JavaScript setzen.) -->
-    <a-entity camera wasd-controls position="3 6 12" rotation="-10 -10 0"></a-entity>
+         alle drei Achsen sichtbar sind.
+         "movement-controls" braucht laut Doku zwingend diesen Aufbau:
+         eine äußere "rig"-Entität, die die Position im Raum trägt und
+         bewegt wird, und darin eine Kind-Entität mit dem "camera"-
+         Attribut. Direkt auf die Kamera gesetzt wirft einen Fehler
+         und bewegt nichts.
+         "controls: gamepad, keyboard" deckt beides ab, was gebraucht
+         wird:
+          - keyboard: WASD/Pfeiltasten, praktisch zum schnellen Testen
+            am Computer.
+          - gamepad: erkennt automatisch auch die Meta-Quest-Controller,
+            sobald man im Quest-Browser über den (automatisch
+            erscheinenden) "Enter VR"-Button in die VR-Ansicht
+            wechselt. Linker Stick = laufen, rechter Stick = drehen.
+            Die eigentliche Blickrichtung (Kopf neigen/drehen) kommt
+            dabei ganz normal vom Headset-Tracking, nicht vom Stick.
+         "look-controls" ist absichtlich weggelassen – die Komponente
+         würde die feste Start-"rotation" der Kind-Kamera beim Laden
+         mit ihrer eigenen, internen Blickrichtung überschreiben, dann
+         schaut man beim Start ins Leere statt auf den Ursprung. -->
+    <a-entity id="rig" movement-controls="controls: gamepad, keyboard" position="3 6 12">
+      <a-entity camera rotation="-10 -10 0"></a-entity>
+    </a-entity>
 
     <!-- Licht -->
     <a-light type="ambient" color="#aaa"></a-light>
