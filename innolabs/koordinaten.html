@@ -38,6 +38,15 @@
          schaut man beim Start ins Leere statt auf den Ursprung. -->
     <a-entity id="rig" movement-controls="controls: gamepad, keyboard" position="3 6 12">
       <a-entity camera rotation="-10 -10 0"></a-entity>
+      <!-- Controller-Strahlen für die VR-Bedienung: erkennen automatisch
+           die Meta-Quest-Controller (u.a. über "meta-touch-controls",
+           steckt in "laser-controls" mit drin) und zeigen einen
+           Laserstrahl. "objects: .clickable" sorgt dafür, dass nur die
+           Bedienfeld-Knöpfe unten anvisiert werden können, nicht die
+           Achsenpunkte o.ä. Trigger drücken = "click" auf dem
+           anvisierten Knopf, genau wie ein Mausklick am Computer. -->
+      <a-entity laser-controls="hand: left" raycaster="objects: .clickable; far: 15"></a-entity>
+      <a-entity laser-controls="hand: right" raycaster="objects: .clickable; far: 15"></a-entity>
     </a-entity>
 
     <!-- Licht -->
@@ -64,6 +73,74 @@
                   color="#6666ff" material="side: double; opacity: 0.65; transparent: true"></a-triangle>
       <a-triangle vertex-a="-3 -3 -3" vertex-b="3 3 -3" vertex-c="-3 3 -3"
                   color="#6666ff" material="side: double; opacity: 0.65; transparent: true"></a-triangle>
+    </a-entity>
+
+    <!-- 3D-Bedienfeld für die VR-Ansicht: das normale div-Panel unten
+         im Dokument bleibt für die Desktop-Nutzung erhalten, wird im
+         VR-Modus vom Browser aber ausgeblendet (2D-Seite ist im
+         Headset nicht sichtbar). Dieses Feld hier besteht aus echten
+         3D-Objekten in der Szene, daher funktioniert es auch mit
+         angezogenem Headset – anvisieren mit dem Controller-Strahl,
+         Trigger drücken.
+         Steht fest an einer Stelle im Raum (nicht am Blickfeld
+         befestigt) – Position unten bei PANEL_POS/PANEL_ROT leicht
+         anpassbar. Steuert wie das div-Panel nur die erste (rote)
+         Fläche. Alle Flächen liegen lokal in der eigenen x/y-Ebene
+         der Gruppe, "side: double" macht sie von beiden Seiten
+         lesbar/klickbar, unabhängig von der genauen Ausrichtung. -->
+    <a-entity id="vr-panel" position="-7 3 -6" rotation="0 -45 0">
+      <a-plane width="3.6" height="2.8" position="0 0.3 0"
+               color="#1c2743" opacity="0.9" material="side: double"></a-plane>
+
+      <a-text value="Flaeche verschieben" position="0 1.5 0.02" align="center" width="3" color="#fff"></a-text>
+
+      <!-- Position: x-/x+/y-/y+/z-/z+ -->
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="x" data-delta="-0.5"
+               position="-1.3 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="x -" position="-1.3 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="x" data-delta="0.5"
+               position="-0.78 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="x +" position="-0.78 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="y" data-delta="-0.5"
+               position="-0.26 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="y -" position="-0.26 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="y" data-delta="0.5"
+               position="0.26 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="y +" position="0.26 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="z" data-delta="-0.5"
+               position="0.78 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="z -" position="0.78 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="pos" data-achse="z" data-delta="0.5"
+               position="1.3 1.05 0.01" width="0.46" height="0.4" color="#3a4a7a" material="side: double"></a-plane>
+      <a-text value="z +" position="1.3 1.05 0.02" align="center" width="2" color="#fff"></a-text>
+
+      <a-text value="Flaeche drehen" position="0 0.55 0.02" align="center" width="3" color="#fff"></a-text>
+
+      <!-- Drehung: x/y/z je -15 Grad / +15 Grad -->
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="x" data-delta="-15"
+               position="-1.3 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="x -15" position="-1.3 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="x" data-delta="15"
+               position="-0.78 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="x +15" position="-0.78 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="y" data-delta="-15"
+               position="-0.26 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="y -15" position="-0.26 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="y" data-delta="15"
+               position="0.26 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="y +15" position="0.26 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="z" data-delta="-15"
+               position="0.78 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="z -15" position="0.78 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+      <a-plane class="clickable vr-btn" data-art="rot" data-achse="z" data-delta="15"
+               position="1.3 0.1 0.01" width="0.46" height="0.4" color="#4a3a7a" material="side: double"></a-plane>
+      <a-text value="z +15" position="1.3 0.1 0.02" align="center" width="1.6" color="#fff"></a-text>
+
+      <a-text id="status-3d" value="" position="0 -0.35 0.02" align="center" width="2.6" color="#fff"></a-text>
+
+      <a-plane class="clickable vr-btn" data-art="reset"
+               position="0 -0.8 0.01" width="1.6" height="0.4" color="#7a3a3a" material="side: double"></a-plane>
+      <a-text value="zuruecksetzen" position="0 -0.8 0.02" align="center" width="2.2" color="#fff"></a-text>
     </a-entity>
 
 
@@ -194,9 +271,16 @@
       var el = document.getElementById('flaeche');
       var p = el.getAttribute('position');
       var r = el.getAttribute('rotation');
-      document.getElementById('status').textContent =
-        'Position (' + p.x.toFixed(1) + ', ' + p.y.toFixed(1) + ', ' + p.z.toFixed(1) + ')' +
+      var text = 'Position (' + p.x.toFixed(1) + ', ' + p.y.toFixed(1) + ', ' + p.z.toFixed(1) + ')' +
         '  ·  Drehung (' + Math.round(r.x) + '°, ' + Math.round(r.y) + '°, ' + Math.round(r.z) + '°)';
+      document.getElementById('status').textContent = text;
+      // Gleiche Anzeige auch im 3D-Panel für die VR-Ansicht (ohne
+      // Sonderzeichen, damit sie mit der Standard-Textur sicher
+      // dargestellt werden – "Grad" statt "°", Mittelpunkt statt "·").
+      var text3d = 'Position (' + p.x.toFixed(1) + ', ' + p.y.toFixed(1) + ', ' + p.z.toFixed(1) + ')\n' +
+        'Drehung (' + Math.round(r.x) + ', ' + Math.round(r.y) + ', ' + Math.round(r.z) + ')';
+      var status3d = document.getElementById('status-3d');
+      if (status3d) { status3d.setAttribute('value', text3d); }
     }
 
     // Beim Laden ist die Komponente "position/rotation" des Entities
@@ -204,6 +288,36 @@
     // "0.0, 0.0, 0.0" zeigen, obwohl die Fläche schon richtig steht.
     // Deshalb erst nach dem "loaded"-Event des Entities lesen.
     document.getElementById('flaeche').addEventListener('loaded', updateStatus);
+
+    // ---------------------------------------------------------------
+    // 3D-Bedienfeld (für VR): jeder Knopf ist ein <a-plane class="clickable">
+    // mit data-art/data-achse/data-delta. "click" feuert sowohl bei
+    // einem Maus-Klick (am Computer) als auch – über laser-controls,
+    // raycaster und den Controller-Trigger – in VR auf der Meta Quest.
+    // Ruft dieselben Funktionen wie das div-Panel auf, beide bleiben
+    // also synchron.
+    // ---------------------------------------------------------------
+    document.querySelectorAll('.vr-btn').forEach(function (btn) {
+      var art = btn.getAttribute('data-art');
+      var achse = btn.getAttribute('data-achse');
+      var delta = parseFloat(btn.getAttribute('data-delta'));
+
+      btn.addEventListener('click', function () {
+        if (art === 'pos') { nudgePos(achse, delta); }
+        else if (art === 'rot') { nudgeRot(achse, delta); }
+        else if (art === 'reset') { resetFlaeche(); }
+      });
+
+      // Kleines visuelles Feedback, welcher Knopf gerade anvisiert
+      // ist – nützlich in VR, wo es keinen Mauszeiger gibt.
+      var normalColor = btn.getAttribute('color');
+      btn.addEventListener('mouseenter', function () {
+        btn.setAttribute('color', '#7c9eff');
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.setAttribute('color', normalColor);
+      });
+    });
   </script>
 </body>
 </html>
